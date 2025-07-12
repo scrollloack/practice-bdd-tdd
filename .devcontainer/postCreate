@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+echo "Current user: $(whoami)"
+
+if [ -f "Gemfile" ]; then
+  bundle install
+else
+  echo "No Gemfile found, skipping dependencies installation."
+fi
+
+if [ -f "config/database.yml.example" ]; then
+  echo "Copying database.yml..."
+  cp -n config/database.yml.example config/database.yml
+fi
+
+if [ -f "bin/rails" ]; then
+  bin/rails db:prepare
+else
+  echo "bin/rails not found, skipping database."
+fi
+
+echo "Done!"
