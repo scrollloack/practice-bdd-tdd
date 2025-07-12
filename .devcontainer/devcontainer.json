@@ -3,11 +3,14 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
   "customizations": {
     "vscode": {
       "extensions": [
         "rebornix.ruby",
-        "Shopify.ruby-lsp",
+        "shopify.ruby-lsp",
         "castwide.solargraph",
         "eamodio.gitlens",
         "stripe.endsmart",
