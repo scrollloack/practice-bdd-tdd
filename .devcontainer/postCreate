@@ -3,7 +3,15 @@ set -e
 
 echo "Current user: $(whoami)"
 
+if [ -d ".ruby-lsp" ]; then
+  echo "Reinstalling Ruby LSP..."
+  rm -rf .ruby-lsp
+else
+  echo ".ruby-lsp directory not found, skipping Ruby LSP installation."
+fi
+
 if [ -f "Gemfile" ]; then
+  echo "Installing Ruby dependencies..."
   bundle install
 else
   echo "No Gemfile found, skipping dependencies installation."
