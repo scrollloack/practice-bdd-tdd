@@ -41,7 +41,8 @@ class ProductsController < ApplicationController
 
       item['quantity'] = item['quantity'].to_i + quantity
 
-      if code == 'GR1'
+      case code
+      when 'GR1'
         has_promo = item['has_promo'] || false
 
         if !has_promo
@@ -54,6 +55,14 @@ class ProductsController < ApplicationController
         else
           charged_quantity = [ item['quantity'] - 1, 0 ].max
           item['charged_price'] = product.price.to_f * charged_quantity
+        end
+      when 'SR1'
+        has_promo = item['has_promo'] || false
+
+        if item['quantity'] >= 3 && !has_promo
+          item['price'] = 4.50
+          item['charged_price'] = item['price'].to_f * item['quantity'].to_i
+          item['has_promo'] = true
         end
       end
 

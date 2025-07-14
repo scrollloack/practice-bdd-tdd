@@ -105,9 +105,28 @@ RSpec.describe '/products', type: :request do
       let(:param_quantity) { 1 }
       let(:product_name) { 'Green Tea' }
       let(:quantity) { 2 }
-      let(:total_quantity) { 2 }
+      let(:total_quantity) { quantity }
 
       it 'returns a JSON response with the buy 1 get 1 promo details' do
+        post '/products/add_to_cart', params: params_data
+
+        expect(response).to have_http_status(:ok)
+        json_response = JSON.parse(response.body)
+        expect(json_response['data']).to eq(cart_result)
+      end
+    end
+
+    context 'when adding three quantity of strawberries product to the cart' do
+      let(:charged_price) { 13.5 }
+      let(:code) { 'SR1' }
+      let(:has_promo) { true }
+      let(:param_quantity) { 3 }
+      let(:price) { 4.5 }
+      let(:product_name) { 'Strawberries' }
+      let(:quantity) { 3 }
+      let(:total_price) { charged_price }
+
+      it 'returns a JSON response with the price cut promo details' do
         post '/products/add_to_cart', params: params_data
 
         expect(response).to have_http_status(:ok)
