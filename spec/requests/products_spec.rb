@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '/products', type: :request do
+RSpec.describe 'ProductsController', type: :request do
   let!(:key) { 'cart:test-user' }
   let!(:mock_redis) { instance_double('Redis') }
 
@@ -36,7 +36,7 @@ RSpec.describe '/products', type: :request do
   end
 
   describe 'POST /products/add_to_cart' do
-    let(:charged_price) { 0.0 }
+    let(:charged_price) { 10.0 }
     let(:code) { 'some_product_code' }
     let(:has_promo) { false }
     let(:param_quantity) { 1 }
@@ -127,6 +127,25 @@ RSpec.describe '/products', type: :request do
       let(:total_price) { charged_price }
 
       it 'returns a JSON response with the price cut promo details' do
+        post '/products/add_to_cart', params: params_data
+
+        expect(response).to have_http_status(:ok)
+        json_response = JSON.parse(response.body)
+        expect(json_response['data']).to eq(cart_result)
+      end
+    end
+
+    context 'when adding three quantity of coffee product to the cart' do
+      let(:charged_price) { 22.46 }
+      let(:code) { 'CF1' }
+      let(:has_promo) { true }
+      let(:param_quantity) { 3 }
+      let(:price) { 11.23 }
+      let(:product_name) { 'Coffee' }
+      let(:quantity) { 3 }
+      let(:total_price) { charged_price }
+
+      it 'returns a JSON response with the price off promo details' do
         post '/products/add_to_cart', params: params_data
 
         expect(response).to have_http_status(:ok)

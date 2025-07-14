@@ -63,7 +63,20 @@ class ProductsController < ApplicationController
           item['price'] = 4.50
           item['charged_price'] = item['price'].to_f * item['quantity'].to_i
           item['has_promo'] = true
+        else
+          item['charged_price'] = product.price.to_f * item['quantity'].to_i
         end
+      when 'CF1'
+        has_promo = item['has_promo'] || false
+
+        if item['quantity'] >= 3 && !has_promo
+          item['charged_price'] = (product.price.to_f * (2.0/3.0).to_f) * item['quantity'].to_i
+          item['has_promo'] = true
+        else
+          item['charged_price'] = product.price.to_f * item['quantity'].to_i
+        end
+      else
+        item['charged_price'] = product.price.to_f * item['quantity'].to_i
       end
 
       current_cart[code] = item
@@ -74,14 +87,7 @@ class ProductsController < ApplicationController
 
       all_products = current_cart.values
 
-      total_price = all_products.sum do |p|
-        if p['code'] == 'GR1' && p['charged_price']
-          p['charged_price'].to_f
-        else
-          p['price'].to_f * p['quantity'].to_i
-        end
-      end
-
+      total_price = all_products.sum { |p| p['charged_price'].to_f }
       total_quantity = all_products.sum { |p| p['quantity'].to_i }
 
       data = {
