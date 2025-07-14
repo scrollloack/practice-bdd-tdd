@@ -36,7 +36,10 @@ RSpec.describe '/products', type: :request do
   end
 
   describe 'POST /products/add_to_cart' do
+    let(:charged_price) { 0.0 }
     let(:code) { 'some_product_code' }
+    let(:has_promo) { false }
+    let(:param_quantity) { 1 }
     let(:price) { 10.00 }
     let(:product_name) { 'some_product_name' }
     let(:quantity) { 1 }
@@ -48,12 +51,14 @@ RSpec.describe '/products', type: :request do
         'code' => code,
         'name' => product_name,
         'price' => price,
-        'quantity' => quantity
+        'quantity' => quantity,
+        'has_promo' => has_promo,
+        'charged_price' => charged_price
       }
     end
     let(:cart_result) do
       {
-        'products' => cart_item,
+        'products' => [ cart_item ],
         'total_price' => total_price,
         'total_quantity'=> total_quantity
       }
@@ -62,7 +67,7 @@ RSpec.describe '/products', type: :request do
       {
         'data': {
           'code': code,
-          'quantity': quantity
+          'quantity': param_quantity
         }
       }
     end
@@ -83,12 +88,57 @@ RSpec.describe '/products', type: :request do
       $redis = mock_redis
     end
 
-    it 'returns a JSON response of the added product' do
-      post '/products/add_to_cart', params: params_data
+    context 'when adding a product to the cart' do
+      it 'returns a JSON response of the added product' do
+        post '/products/add_to_cart', params: params_data
 
-      expect(response).to have_http_status(:ok)
-      json_response = JSON.parse(response.body)
-      expect(json_response['data']).to eq(cart_result)
+        expect(response).to have_http_status(:ok)
+        json_response = JSON.parse(response.body)
+        expect(json_response['data']).to eq(cart_result)
+      end
+    end
+
+    context 'when adding a green tea product to the cart' do
+      let(:charged_price) { 10.0 }
+      let(:code) { 'GR1' }
+      let(:has_promo) { true }
+      let(:param_quantity) { 1 }
+      let(:product_name) { 'Green Tea' }
+      let(:quantity) { 2 }
+      let(:total_quantity) { 2 }
+
+      it 'returns a JSON response with the buy 1 get 1 promo details' do
+        post '/products/add_to_cart', params: params_data
+
+        expect(response).to have_http_status(:ok)
+        json_response = JSON.parse(response.body)
+        expect(json_response['data']).to eq(cart_result)
+      end
+    end
+
+    context 'when adding an invalid quantity' do
+      let(:param_quantity) { -1 }
+      let(:error_message) { 'Quantity must be greater than zero.' }
+
+      it 'returns an error if the quantity is invalid' do
+        post '/products/add_to_cart', params: params_data
+
+        expect(response).to have_http_status(:bad_request)
+        json_response = JSON.parse(response.body)
+        expect(json_response['error']).to eq(error_message)
+      end
+    end
+
+    context 'when adding an invalid product' do
+      let(:product) { nil }
+
+      it 'returns an error if the product does not exist' do
+        post '/products/add_to_cart', params: params_data
+
+        expect(response).to have_http_status(:not_found)
+        json_response = JSON.parse(response.body)
+        expect(json_response['error']).to eq('Product not found')
+      end
     end
   end
 end
