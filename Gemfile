@@ -16,7 +16,7 @@ gem "dotenv-rails", "~> 2.1", ">= 2.1.1"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 5.2"
 
-gem "json", "~> 2.12", ">= 2.12.2"
+gem "json", "~> 2.13"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
