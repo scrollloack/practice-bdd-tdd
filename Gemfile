@@ -14,7 +14,7 @@ gem "jbuilder"
 gem "dotenv-rails", "~> 2.1", ">= 2.1.1"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 5.2"
+gem "redis", "~> 5.4"
 
 gem "json", "~> 2.12", ">= 2.12.2"
 
