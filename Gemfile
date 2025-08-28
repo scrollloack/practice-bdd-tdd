@@ -45,7 +45,7 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
-  gem "rubocop", "~> 1.77"
+  gem "rubocop", "~> 1.80"
   gem "rubocop-performance", "~> 1.25"
   gem "rubocop-rails", "~> 2.23", ">= 2.23.1"
   gem "factory_bot_rails"
