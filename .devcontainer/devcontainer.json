@@ -15,7 +15,6 @@
         "stripe.endsmart",
         "esbenp.prettier-vscode",
         "wingrunr21.vscode-ruby",
-        "misogi.ruby-rubocop",
         "streetsidesoftware.code-spell-checker",
         "hridoy.rails-snippets",
         "karunamurti.rspec-snippets",
@@ -26,9 +25,6 @@
     },
     "settings": {
       "files.eol": "\n",
-      "files.associations": {
-        "Gemfile": "ruby"
-      },
       "[ruby]": {
         "editor": {
           "defaultFormatter": "Shopify.ruby-lsp",
@@ -39,15 +35,12 @@
           "formatOnType": true
         }
       },
-      "[erb]": {
-        "editor": {
-          "formatOnSave": false
-        }
-      },
       "rubyLsp": {
-        "rubyVersionManager": "rbenv",
+        "rubyVersionManager": {
+          "identifier": "rvm"
+        },
         "formatter": "rubocop",
-        "bundleGemfile": "../Gemfile"
+        "bundleGemfile": ".ruby-lsp/Gemfile"
       },
       "[yaml, yml]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
