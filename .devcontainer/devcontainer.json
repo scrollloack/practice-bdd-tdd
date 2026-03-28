@@ -32,7 +32,7 @@
       },
       "[ruby]": {
         "editor": {
-          "defaultFormatter": "Shopify.ruby-lsp",
+          "defaultFormatter": "shopify.ruby-lsp",
           "formatOnSave": true,
           "tabSize": 2,
           "insertSpaces": true,

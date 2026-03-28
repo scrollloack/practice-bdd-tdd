@@ -11,7 +11,18 @@ fi
 
 if [ -f "config/database.yml.example" ]; then
   echo "Copying database.yml..."
-  cp -n config/database.yml.example config/database.yml
+  cp -f config/database.yml.example config/database.yml
+fi
+
+DB_NAME="app_development"
+DB_USER="postgres"       # Replace with your database user
+
+if psql -U "$DB_USER" -lqt | cut -d \| -f 1 | grep -wq "$DB_NAME"; then
+    echo "Database '$DB_NAME' exists."
+else
+    echo "Database '$DB_NAME' does not exist."
+    echo "Creating database '$DB_NAME'."
+    bin/rails db:create
 fi
 
 if [ -f "bin/rails" ]; then
