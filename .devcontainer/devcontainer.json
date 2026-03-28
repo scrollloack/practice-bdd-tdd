@@ -36,9 +36,7 @@
         }
       },
       "rubyLsp": {
-        "rubyVersionManager": {
-          "identifier": "rvm"
-        },
+        "rubyVersionManager": "rvm",
         "formatter": "rubocop",
         "bundleGemfile": ".ruby-lsp/Gemfile"
       },
