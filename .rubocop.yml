@@ -8,6 +8,6 @@ inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 #   Enabled: false
 
 Style/StringLiterals:
-  EnforcedStyle: double_quotes
+  EnforcedStyle: single_quotes
   Include:
     - "spec/**/*"

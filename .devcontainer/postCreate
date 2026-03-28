@@ -15,17 +15,18 @@ if [ -f "config/database.yml.example" ]; then
 fi
 
 DB_NAME="app_development"
-DB_USER="postgres"       # Replace with your database user
+DB_USER="postgres"
 
-if psql -U "$DB_USER" -lqt | cut -d \| -f 1 | grep -wq "$DB_NAME"; then
+if [ "psql -U '$DB_USER' -lqt | cut -d \| -f 1 | grep -wq '$DB_NAME'" ]; then
     echo "Database '$DB_NAME' exists."
 else
     echo "Database '$DB_NAME' does not exist."
-    echo "Creating database '$DB_NAME'."
+    echo "Creating database '$DB_NAME'..."
     bin/rails db:create
 fi
 
 if [ -f "bin/rails" ]; then
+  echo "Preparing database..."
   bin/rails db:prepare
 else
   echo "bin/rails not found, skipping database."
