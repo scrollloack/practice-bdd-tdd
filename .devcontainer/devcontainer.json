@@ -1,0 +1,86 @@
+{
+  "name": "practice-bdd-tdd",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rebornix.ruby",
+        "Shopify.ruby-lsp",
+        "castwide.solargraph",
+        "eamodio.gitlens",
+        "stripe.endsmart",
+        "esbenp.prettier-vscode",
+        "wingrunr21.vscode-ruby",
+        "misogi.ruby-rubocop",
+        "streetsidesoftware.code-spell-checker",
+        "hridoy.rails-snippets",
+        "karunamurti.rspec-snippets",
+        "2gua.rainbow-brackets",
+        "oderwat.indent-rainbow",
+        "github.copilot"
+      ]
+    },
+    "settings": {
+      "files.eol": "\n",
+      "files.associations": {
+        "Gemfile": "ruby"
+      },
+      "[ruby]": {
+        "editor": {
+          "defaultFormatter": "Shopify.ruby-lsp",
+          "formatOnSave": true,
+          "tabSize": 2,
+          "insertSpaces": true,
+          "semanticHighlighting.enabled": true,
+          "formatOnType": true
+        }
+      },
+      "[erb]": {
+        "editor": {
+          "formatOnSave": false
+        }
+      },
+      "rubyLsp": {
+        "rubyVersionManager": "rbenv",
+        "formatter": "rubocop",
+        "bundleGemfile": "../.ruby-lsp/Gemfile"
+      },
+      "[yaml, yml]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+      },
+      "prettier": {
+        "configPath": ".devcontainer/prettierrc.yaml"
+      },
+      "cSpell.enableFiletypes": [
+        "ruby",
+        "slim"
+      ],
+      "cSpell.ignorePaths": [
+        ".devcontainer"
+      ],
+      "cSpell.ignoreRegExpList": [
+        "/gkc_hash_code.*/g"
+      ],
+      "indentRainbow.indicatorStyle": "light",
+      "indentRainbow.lightIndicatorStyleLineWidth": 3,
+      "indentRainbow.colors": [
+        "rgba(255,255,64,0.3)",
+        "rgba(127,255,127,0.3)",
+        "rgba(255,127,255,0.3)",
+        "rgba(79,236,236,0.3)"
+      ]
+    }
+  },
+  "postStartCommand": "git config --global --add safe.directory /workspaces/${localWorkspaceFolderBasename}",
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": ".devcontainer/postCreate",
+  "forwardPorts": [
+    3000,
+    5432,
+    6379
+  ],
+  "remoteUser": "vscode"
+}
