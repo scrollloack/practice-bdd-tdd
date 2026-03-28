@@ -10,7 +10,7 @@
     "vscode": {
       "extensions": [
         "rebornix.ruby",
-        "shopify.ruby-lsp",
+        "Shopify.ruby-lsp",
         "eamodio.gitlens",
         "stripe.endsmart",
         "esbenp.prettier-vscode",
@@ -31,7 +31,7 @@
       },
       "[ruby]": {
         "editor": {
-          "defaultFormatter": "shopify.ruby-lsp",
+          "defaultFormatter": "Shopify.ruby-lsp",
           "formatOnSave": true,
           "tabSize": 2,
           "insertSpaces": true,
@@ -47,7 +47,7 @@
       "rubyLsp": {
         "rubyVersionManager": "rbenv",
         "formatter": "rubocop",
-        "bundleGemfile": "../.ruby-lsp/Gemfile"
+        "bundleGemfile": "../Gemfile"
       },
       "[yaml, yml]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
