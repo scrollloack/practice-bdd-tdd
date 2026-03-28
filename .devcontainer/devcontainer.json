@@ -20,7 +20,8 @@
         "karunamurti.rspec-snippets",
         "2gua.rainbow-brackets",
         "oderwat.indent-rainbow",
-        "github.copilot"
+        "github.copilot",
+        "shahilkumar.docxreader"
       ]
     },
     "settings": {
