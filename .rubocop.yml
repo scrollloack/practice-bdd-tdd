@@ -7,13 +7,32 @@ inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 # Layout/SpaceInsideArrayLiteralBrackets:
 #   Enabled: false
 
-Layout/IndentationWidth:
+Layout/IndentationStyle:
   Enabled: true
-
+Layout/IndentationWidth:
+  Enabled: false
 Layout/IndentationConsistency:
   Enabled: true
-
+  EnforcedStyle: indented_internal_methods
+Layout/HeredocArgumentClosingParenthesis:
+  Enabled: false
+Layout/LineLength:
+  Enabled: true
+  Max: 120
+Layout/EndOfLine:
+  EnforcedStyle: lf
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/MultilineHashBraceLayout:
+  EnforcedStyle: symmetrical
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent
+Layout/MultilineAssignmentLayout:
+  EnforcedStyle: same_line
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
 Style/StringLiterals:
   EnforcedStyle: single_quotes
   Include:
+    - "app/**/*"
     - "spec/**/*"
